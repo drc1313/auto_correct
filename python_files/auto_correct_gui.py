@@ -1,45 +1,37 @@
 import tkinter as tk
-from tkinter import ttk
-
 from tkinter import *
-'''
-#def auto_correct_gui(filename)
-# Open sample text file
-fin = open('auto_correct_text_file.txt', 'r')
-
-# Create the application window
-window = tk.Tk()
-
-# Create the user interface
-my_label = ttk.Label(window, text = 'Did you mean' + fin.readline() + '?')
-my_label.grid(row=1, column=1)
-
-# Start the GUI event loop
-window.mainloop()
-'''
-
-
+from words import *
+import time
 root = Tk()
-def retrieve_input():
-	inputValue = textBox.get("1.0", "end-1c")
-	#print(inputValue)
+word_suggest_list=[]
 
-	# Open sample text file
-	fin = open('auto_correct_text_file.txt', 'r')
-	# Create the application window
-	window = tk.Tk()
-	# Create the user interface
-	my_label = ttk.Label(window, text = 'Did you mean "' + fin.readline() + '" ?')
-	my_label.grid(row=1, column=1)
-	# Start the GUI event loop
-	window.mainloop()
+textL = Label(root, text='Enter Text')
+textL.grid(row=0,column=0,sticky=NW)
 
-textBox = Text(root, height = 20, width = 100)
-textBox.pack()
-buttonCommit = Button(root, height = 1, width = 50, 
-	text = "Check your spelling", command = lambda: retrieve_input())
-#command = lambda: retrieve_input() >>> just means do this when
-#					I press the button
-buttonCommit.pack()
+suggestL = Label(root, text='Suggestions:',justify=LEFT)
+suggestL.grid(row=2,column=0,sticky=NW)
 
-mainloop()
+def click(key):
+    input=str(repr(key.char))
+    #print(input)
+    
+    
+    if input==repr(' '):
+        line=entry.get()
+        word_list=line.split()
+        word=word_list[-1]
+        word_suggest_list=word_Suggest(word)
+        print (word_suggest_list)
+        new_text='Suggestions:'
+        for word in word_suggest_list:
+            new_text=new_text+'\n'+word
+        suggestL.config(text=new_text,font=("Calibri",20))
+
+entry = Entry(width=1000,font=("Calibri",20))
+
+entry.grid(row=1,column=0,sticky=NW)
+
+entry.bind("<Key>", click)
+
+
+root.mainloop()
