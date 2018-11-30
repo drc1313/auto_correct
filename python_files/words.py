@@ -31,6 +31,7 @@ def get_word_score(lib_word,word_dict,word,word_high_score):
         if len(lib_word)-1>len(word):
             word_dict[lib_word]-=1
         word_score=word_dict.get(lib_word)
+       
         word_dict[lib_word]=0
         
         if word_score>word_high_score:
@@ -43,15 +44,16 @@ def scatter_search(word,new_word,lib_word,trials,word_dict):
     
     if curr_char==new_word[trials+1]:
         discard_char=new_word[trials]
+        
         new_word=new_word[0:trials]+new_word[trials+1]+discard_char+new_word[trials+2:]
         
         if lib_word in word_dict:
             word_dict[lib_word]+=1
-            
+         
         else:
             word_dict[lib_word]=1
             
-    return word_dict
+    return word_dict,new_word
     
 def search_down(subt_amt,word,lib_word,word_dict):
     word_high_score=0
@@ -72,7 +74,7 @@ def search_down(subt_amt,word,lib_word,word_dict):
                         #word_dict[lib_word]=1
                         
                 elif trials!=word_len-1:
-                    word_dict=scatter_search(word,new_word,lib_word,trials,word_dict)
+                    word_dict,new_word=scatter_search(word,new_word,lib_word,trials,word_dict)
                     
                 trials+=1
             if word_dict.get(lib_word) is not None:
@@ -98,7 +100,7 @@ def search_up(add_amt,word,lib_word,word_dict):
                     else:
                         word_dict[lib_word]=1
                 elif trials!=word_len-1:
-                    word_dict=scatter_search(word,new_word,lib_word,trials,word_dict)
+                    word_dict,new_word=scatter_search(word,new_word,lib_word,trials,word_dict)
                 trials+=1 
             if word_dict.get(lib_word) is not None:
                 word_high_score=get_word_score(lib_word,word_dict,word,word_high_score)
@@ -134,7 +136,7 @@ def search_up(add_amt,word,lib_word,word_dict):
                     else:
                         word_dict[lib_word]=1
                 elif trials!=word_len-1:
-                    word_dict=scatter_search(word,new_word,lib_word,trials,word_dict)
+                    word_dict,new_word=scatter_search(word,new_word,lib_word,trials,word_dict)
                 trials+=1 
             if word_dict.get(lib_word) is not None:
                 word_high_score=get_word_score(lib_word,word_dict,word,word_high_score)
@@ -163,13 +165,13 @@ def word_Suggest(word):
                     if lib_word[trials]==new_word[trials]:
                         if lib_word in word_dict:
                             word_dict[lib_word]+=1
-                           
+                            
                         else:
                             word_dict[lib_word]=1
                            
                     elif trials!=word_len-1:
                         
-                         word_dict=scatter_search(word,new_word,lib_word,trials,word_dict)    
+                         word_dict,new_word=scatter_search(word,new_word,lib_word,trials,word_dict)    
                     trials+=1
                 if word_dict.get(lib_word) is not None:
                         word_high_score=get_word_score(lib_word,word_dict,word,word_high_score)
