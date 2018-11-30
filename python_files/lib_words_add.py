@@ -19,13 +19,11 @@ def getCurrWords(length):
     except:
         file=open("../word_files/word_len"+str(length)+'.txt','w+')
         file.close()
-        
     file=open("../word_files/word_len"+str(length)+'.txt','r')
     cur_words=[]
     for line in file:
         cur_words.append(line.strip())
     file.close()
-  
     return cur_words
     
 #Will use webRead and open dictionary.com with the desired word to look up at the end of URL
@@ -39,7 +37,6 @@ def wordLookUp(word):
             return True
         else:
             return False
-        
     return False
  
 #This will open the words_add.txt which searches for words within and returns all words found in a list
@@ -54,11 +51,9 @@ def getWord2Add():
         for line in line_list:
             if line.isalpha():
                 sep_word_list.append(line.lower())
-                
     return sep_word_list
 
 def wordAppend(word):
-    
     file=open("../word_files/all_words.txt",'a+')
     file.write(word.lower()+'\n')
     file.close()
