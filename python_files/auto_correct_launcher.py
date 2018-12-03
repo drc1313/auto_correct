@@ -1,3 +1,9 @@
+'''
+GUI Interface that connects to the word_finder.py file
+auto_correct_launcher.py
+Dillon/Scott
+12/3/18
+'''
 import tkinter as tk
 from tkinter import *
 from word_finder import *

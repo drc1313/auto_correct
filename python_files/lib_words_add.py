@@ -1,3 +1,9 @@
+'''
+Adds words to the word files
+lib_words.py
+Dillon/Scott
+12/3/18
+'''
 import urllib.request
 #Opens WebPage
 def webRead(URL):

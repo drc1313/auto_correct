@@ -1,3 +1,11 @@
+'''
+File that holds all functions used by the program
+In short, functions work together to take misspelled word and compare 
+them to correct ones giving points to matches
+word_finder.py
+Dillon/Scott
+12/3/18
+'''
 #Opens files given and returns list of words inside 
 def file_open(file_name):
     file=open(file_name)
